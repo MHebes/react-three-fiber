@@ -26,7 +26,6 @@ import {
   EquConfig,
   getRootState,
   useIsomorphicLayoutEffect,
-  Camera,
   updateCamera,
   getColorManagement,
   buildGraph,
@@ -88,7 +87,7 @@ export type RenderProps<TCanvas extends Canvas> = {
   scene?: THREE.Scene | Partial<ReactThreeFiber.Object3DNode<THREE.Scene, typeof THREE.Scene>>
   /** A `THREE.Camera` instance or props that go into the default camera */
   camera?: (
-    | Camera
+    | THREE.Camera
     | Partial<
         ReactThreeFiber.Object3DNode<THREE.Camera, typeof THREE.Camera> &
           ReactThreeFiber.Object3DNode<THREE.PerspectiveCamera, typeof THREE.PerspectiveCamera> &
@@ -220,7 +219,7 @@ function createRoot<TCanvas extends Canvas>(canvas: TCanvas): ReconcilerRoot<TCa
         lastCamera = cameraOptions
         const isCamera = cameraOptions instanceof THREE.Camera
         const camera = isCamera
-          ? (cameraOptions as Camera)
+          ? (cameraOptions as THREE.Camera)
           : orthographic
           ? new THREE.OrthographicCamera(0, 0, 0, 0, 0.1, 1000)
           : new THREE.PerspectiveCamera(75, 0, 0.1, 1000)
